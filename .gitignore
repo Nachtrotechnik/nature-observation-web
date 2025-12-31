@@ -1,12 +1,13 @@
 # Dependencies
 node_modules/
-node_modul/node_modules/
+server/node_modules/
 
 # Excluded directories
 php/
 progress/
 docs/
 .superdesign/
+node_modul/          # Old backend directory (can be removed after migration)
 
 # Export files (generated)
 export_*.json
@@ -15,6 +16,7 @@ export_*.json
 # OS files
 .DS_Store
 Thumbs.db
+.DS_Store?
 
 # IDE files
 .vscode/
@@ -22,11 +24,34 @@ Thumbs.db
 *.swp
 *.swo
 *~
+*.sublime-project
+*.sublime-workspace
 
 # Logs
 *.log
 npm-debug.log*
+npm-error.log*
+yarn-error.log*
+lerna-debug.log*
 
 # Environment variables
 .env
 .env.local
+.env.*.local
+
+# Build outputs (if any)
+dist/
+build/
+*.tsbuildinfo
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# MongoDB data (if running locally)
+data/
+
+# Package manager locks (optional - some teams commit these)
+# package-lock.json
+# yarn.lock

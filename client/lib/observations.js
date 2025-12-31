@@ -3,7 +3,10 @@
 
 // 1. KONFIGURATION & KONSTANTEN
 
-const API_BASE_URL = "https://api.inaturalist.org/v1/observations";
+// Use API config if available, otherwise fallback
+const API_BASE_URL = (typeof API_CONFIG !== 'undefined' && API_CONFIG.external?.iNaturalist?.baseURL) 
+    ? API_CONFIG.external.iNaturalist.baseURL 
+    : "https://api.inaturalist.org/v1/observations";
 const OBSERVATIONS_PER_PAGE = 6;
 const MAX_PAGES_TO_SEARCH = 24; // Maximale Anzahl Seiten beim Suchen nach gültigen Beobachtungen
 
@@ -486,7 +489,7 @@ function displayLocalObservations(data) {
 }    
 
 function loadLocalObservations() {
-    const server ="http://localhost:3000/observations"
+    const server = API_CONFIG.baseURL + API_CONFIG.endpoints.observations.getAll;
     fetch(server)
         .then(response => {
             if (!response.ok) {
@@ -565,7 +568,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // JSON-String erstellen und an Server senden
             const jsonData = JSON.stringify(exportData, null, 2);
             $.ajax({
-                url: 'http://localhost:3000/export',
+                url: API_CONFIG.baseURL + API_CONFIG.endpoints.observations.export,
                 type: 'POST',
                 contentType: 'application/json',
                 data: jsonData,

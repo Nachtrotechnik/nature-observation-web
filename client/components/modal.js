@@ -32,7 +32,7 @@ $(document).ready(function() {
         
         // Send AJAX POST request
         $.ajax({
-            url: 'http://localhost:3000/observation',
+            url: API_CONFIG.baseURL + API_CONFIG.endpoints.observations.create,
             type: 'POST',
             contentType: 'application/json',
             data: jsonData,

@@ -21,7 +21,7 @@
             <!-- Hauptnavigation: Logo, Titel und Navigationslinks -->
             <div class="container-fluid d-flex flex-column flex-md-row justify-content-between align-items-center bg-success bg-gradient text-white gap-2 gap-md-4 px-2 px-md-4">
                 <figure class="figure align-self-center ms-2 ms-md-5 mb-0">
-                    <img class="figure-img img-fluid rounded" src="logo.jpg" alt="Logo">
+                    <img class="figure-img img-fluid rounded" src="assets/logo.jpg" alt="Logo">
                 </figure>
                 <h1 class="display-3 align-self-baseline text-uppercase text-white mt-2 mb-0">Naturbeobachtungen</h1>
                 <nav class="align-self-end h6 mb-0" aria-label="Hauptnavigation">
@@ -53,10 +53,9 @@
             <div class="d-flex justify-content-between align-items-center my-2">
                 <div></div>
                 <div class="btn-group" role="group" aria-label="View toggle">
-                    <input type="radio" class="btn-check" name="view-toggle" id="view-local" autocomplete="off">
+                    <input type="radio" class="btn-check" name="view-toggle" id="view-local">
                     <label class="btn btn-outline-success" for="view-local">Lokal</label>
-                    
-                    <input type="radio" class="btn-check" name="view-toggle" id="view-inaturalist" autocomplete="off" checked>
+                    <input type="radio" class="btn-check" name="view-toggle" id="view-inaturalist" checked>
                     <label class="btn btn-outline-success" for="view-inaturalist">iNaturalist</label>
                 </div>
                 <div class="d-flex gap-2">
@@ -141,10 +140,12 @@
             <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin></script>
         -->
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin></script>
-        <script src="map.js"></script>
-        <script src="sidebar.js"></script>
-        <script src="observations.js"></script>
-        <script src="modal.js"></script>
+        <script src="config/api.config.js"></script>
+        <script src="features/map.js"></script>
+        <script src="components/sidebar.js"></script>
+        <script src="lib/observations.js"></script>
+        <script src="components/modal.js"></script>
+        <script src="lib/main.js"></script>
         <div class="modal" id="observationModal" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
