@@ -1,0 +1,301 @@
+/* Einheitliche Typografie */
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #000;
+}
+
+/* Einheitliche Schriftgrößen für Formulare */
+.form-control, .form-label, .btn, label {
+    font-size: 16px;
+}
+
+/* Card-Images */
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Observations-Karten: Gleiche Schriftart wie Rest der Seite */
+.card, .card-body, .card-title, .card-text, .card a, .card .btn {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+/* Logo-Größe im Header */
+header figure img {
+    max-width: 75px;
+    max-height: 75px;
+    width: auto;
+    height: auto;
+}
+
+/* Checkbox-Farbe für bessere Sichtbarkeit */
+.form-check-input {
+    background-color: #fff;
+}
+
+.form-check-input:checked {
+    background-color: #198754;
+    border-color: #198754;
+}
+
+/* Checkbox im Footer - bessere Positionierung */
+footer .form-check-input {
+    margin-top: 0.23rem;
+}
+
+/* Sticky Footer: Main nimmt verfügbaren Platz ein */
+main {
+    flex-grow: 1;
+}
+
+/* Responsive Abstände */
+body {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/* Main-Content: Volle Breite auf Mobile, zentriert auf Desktop */
+main .container {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+/* Responsive Header: Sicherstellen dass alles auf Mobile sichtbar ist */
+@media screen and (max-width: 767px) {
+    /* Überschrift kleiner auf Mobile */
+    header .display-3 {
+        font-size: 1.5rem;
+        line-height: 1.2;
+        margin-top: 0.5rem !important;
+    }
+    
+    /* Navigation kleiner auf Mobile */
+    header .h6 {
+        font-size: 0.875rem;
+    }
+    
+    /* Navigation auf Mobile: Flex-Wrap für bessere Anzeige */
+    header nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    /* Header-Elemente auf Mobile zentrieren */
+    header .container-fluid {
+        text-align: center;
+    }
+    
+    header figure,
+    header h1,
+    header nav {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    /* Logo kleinerer Abstand auf Mobile */
+    header figure {
+        margin-left: 0 !important;
+    }
+    
+    /* Action-Bereich auf Mobile: Volle Breite */
+    header .input-group {
+        width: 100% !important;
+    }
+    
+    header .input-group label {
+        font-size: 0.875rem;
+        margin-left: 0.5rem !important;
+        margin-right: 0.5rem !important;
+    }
+    
+    /* Beobachtung hinzufügen Formular auf Mobile: Volle Breite */
+    header form.d-flex {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    /* Main-Content: Volle Breite auf Mobile */
+    main {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+}
+
+/* Responsive Design für sehr kleine Bildschirme (unter 415px) */
+/* 
+  Die meisten typografischen und spacing-Anpassungen für kleine Bildschirme lassen sich direkt über Bootstrap-Utility-Klassen und die responsive Bootstrap-Klassen lösen. 
+  Spezifische Überschreibungen wie oben sind dann oft überflüssig. 
+  Für wirklich minimale Anpassungen, die Bootstrap nicht abdeckt (z.B. extremes Verkleinern des Logos), hier ein reduziertes Beispiel:
+
+  Falls noch Custom-Code benötigt wird, dann z.B. nur für das besonders kleine Logo. 
+  Für alles andere besser Bootstrap nutzen: 
+  - Kleine Schrift: .fs-6, .fs-7, .text-small, etc.
+  - Abstände: .p-*, .px-*, .mb-*, .gap-*, etc.
+*/
+@media (max-width: 414px) {
+    header figure img {
+        max-width: 50px;
+        max-height: 50px;
+    }
+}
+
+/* Einheitlicher Tablet-Bereich (767px - 1111px) - Immer vertikal */
+@media screen and (min-width: 767px) and (max-width: 1111px) {
+    body {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    
+    main .container {
+        max-width: 100%;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+    
+    /* Überschrift für Tablet */
+    header .display-3 {
+        font-size: 2rem;
+        line-height: 1.2;
+    }
+    
+    /* Navigation für Tablet */
+    header .h6 {
+        font-size: 0.9rem;
+    }
+    
+    /* Logo-Größe für Tablet - sicherstellen dass es sichtbar ist */
+    header figure img {
+        max-width: 75px;
+        max-height: 75px;
+        width: auto;
+        height: auto;
+        display: block;
+    }
+    
+    /* Action-Bereich: Anpassung für Tablet */
+    header .input-group {
+        width: 60% !important;
+    }
+    
+    /* Header-Layout: Navbar in neue Zeile (vertikal) - für gesamten Tablet-Bereich */
+    header .container-fluid {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 0.75rem !important;
+    }
+    
+    /* Logo zentrieren */
+    header figure {
+        margin-left: 0 !important;
+        margin-bottom: 0;
+        align-self: center !important;
+    }
+    
+    /* Überschrift zentrieren */
+    header h1 {
+        align-self: center !important;
+        text-align: center;
+        margin-bottom: 0;
+    }
+    
+    /* Navigation zentrieren und korrekt darstellen */
+    header nav {
+        align-self: center !important;
+        margin-top: 0;
+    }
+    
+    /* Navbar-Links zentrieren */
+    header nav ul {
+        justify-content: center !important;
+    }
+}
+
+/* Desktop-Bereich (1112px - 1279px) - beginnt nach Tablet-Bereich */
+@media screen and (min-width: 1112px) and (max-width: 1279px) {
+    body {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+    
+    main .container {
+        max-width: 1140px;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    
+    /* Überschrift für Desktop */
+    header .display-3 {
+        font-size: 2.5rem;
+        line-height: 1.2;
+    }
+    
+    /* Logo-Größe für Desktop-Bereich - konsistent */
+    header figure img {
+        max-width: 75px !important;
+        max-height: 75px !important;
+        width: auto !important;
+        height: auto !important;
+        display: block !important;
+    }
+    
+    /* Logo-Abstand für Desktop */
+    header figure {
+        margin-left: 2rem !important;
+    }
+    
+    /* Navigation für Desktop */
+    header .h6 {
+        font-size: 1rem;
+    }
+}
+
+
+/* Großer Desktop (ab 1280px) */
+@media screen and (min-width: 1280px) {
+    body {
+        padding-left: 60px;
+        padding-right: 60px;
+    }
+    
+    main .container {
+        max-width: 1140px;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    
+    header .display-3 {
+        font-size: 3rem;
+    }
+}
+
+/* Sidebar und Leaflet-Karte */
+.sidebar-map-container {
+    height: 600px;
+}
+
+.map-container {
+    height: 100%;
+    width: 100%;
+    min-height: 400px; /* Mindesthöhe für Leaflet */
+}
+
+/* Leaflet-Karte Styling - wichtig für korrekte Anzeige */
+#map {
+    height: 600px !important; /* Explizite Höhe für Leaflet */
+    width: 100% !important;
+    min-height: 400px;
+    z-index: 0; /* Sicherstellen, dass Karte über anderen Elementen liegt */
+    position: relative; /* Wichtig für Leaflet */
+}
+

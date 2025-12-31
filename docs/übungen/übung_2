@@ -1,0 +1,152 @@
+Studiengang Betriebliche Umweltinformatik
+Web-Technologien und -Programmierung
+(Wintersemester 2025/26)
+Prof. Dr. Frank Fuchs-Kittowski
+WT II – Wintersemester 2025/26 1
+04 – JavaScript, DOM, AJAX, JSON
+Lernziel
+In dieser Programmieraufgabe geht es um JavaScript, DOM, AJAX und JSON. Sie sollen Ihr
+Können in JavaScript verfestigen, über DOM-Manipulation in einem Dokument die Inhalte ver-
+ändern und anzeigen sowie über AJAX einzelne Bereiche einer Webseite aktualisieren kön-
+nen.
+Aufgaben
+In dieser Aufgabe sollen Sie Ihre bisherige auf HTML und CCS basierende Lösung für eine
+„Onlineplattform zum Erfassen und Anzeigen von naturbezogenen Beobachtungen“ für
+Tiere und Pflanzen funktional weiterentwickeln, indem Sie einige Funktionen mit JavaScript &
+DOM (Aufgabe 1) sowie AJAX & JSON (Aufgabe 2) realisieren.
+1. Formular-Validierung und Formular-Vorschau mit JavaScript & DOM
+Entwickeln Sie mit HTML und JavaScript ein Web-Formular für die „Registrierung“ einer/eines
+neuen Nutzerin/Nutzers, das bei der Eingabe der Daten und beim Senden des Formulars eine
+Validierung der vom Nutzer eingegebenen Daten durchführt. Sind nicht alle eingegebenen
+Daten valide, soll unter oder hinter den fehlerhaften Eingaben in roter Schrift eine Korrektur-
+aufforderung angezeigt werden. Sind alle eingegebenen Daten valide, so sollen die von
+der/dem Nutzer*in zu übermittelnden Daten übersichtlich als Vorschau dargestellt werden.
+a) Web-Formular (HTML5)
+Erstellen Sie ein HTML5-Formular. Das Formular soll über die folgenden sieben Felder verfü-
+gen, von denen Sie so oft wie möglich ein HTML5-Feld des geeigneten Typs verwenden sollen:
+• Name*
+• E-Mail*
+• Telefonnummer
+• Geburtstag*
+• URL der Homepage
+• Passwort*
+• Passwort bestätigen*
+Mit * versehene Punkte sollen Pflichtfelder darstellen. Beim Betreten der Seite soll das erste
+Feld (Name) automatisch fokussiert werden. Einen Button zum Versenden des Formulars kön-
+nen Sie z.B. über <input type="submit" value="Vorschau anzeigen!"/> erstellen.
+Sie können darüber hinaus eine Beispieleingabe als Platzhalter in den Eingabefeldern anzei-
+gen lassen, um zu verdeutlichen, in welchem Format die Daten eingegeben werden sollen.
+Studiengang Betriebliche Umweltinformatik
+Web-Technologien und -Programmierung
+(Wintersemester 2025/26)
+Prof. Dr. Frank Fuchs-Kittowski
+WT II – Wintersemester 2025/26 2
+b) Formular-Validierung (JavaScript)
+Validieren Sie die Eingabefelder des Formulars mithilfe von JavaScript. Die folgenden Krite-
+rien sollen dabei mindestens erfüllt sein:
+• Name: Der Name soll im Format Nachname, Vorname angegeben werden. Dies kann
+beispielsweise mithilfe des folgenden Musters überprüft werden:
+[a-zA-Z]+, [a-zA-Z]+
+• E-Mail: Die E-Mail-Adresse soll gültig sein. Dies kann beispielsweise mithilfe des fol-
+genden Musters überprüft werden:
+[a-zA-Z0-9\.\
+_
+\-]+\@[a-zA-Z0-9\-]+\.[a-zA-Z]{2,}
+• Telefonnummer: Die Telefonnummer soll im Format +49 123 456789 angegeben
+werden. Dies kann beispielsweise mithilfe des folgenden Musters überprüft werden:
+\+\d{1,3}\s\d{3,4}\s\d{4,8}
+• Geburtstag: Der/Die Nutzer*in sollte mindestens 18 Jahre alt sein. Um das aktuelle
+Datum abzurufen und die Eingabe zu einem Datum umzuwandeln, können Sie die
+Klasse Date verwenden.
+• URL der Homepage: Die URL der Homepage soll gültig sein. Dies kann beispielsweise
+mithilfe des folgenden Musters überprüft werden:
+www\.[a-zA-Z\-]+\.[a-zA-Z]+[a-zA-Z\-\
+_
+\/]
+• Passwort: Das Passwort soll mindestens aus acht Zeichen bestehen.
+• Passwort bestätigen: Die Passwörter müssen übereinstimmen.
+Hinter/unter jedem Eingabefeld des Formulars, das nicht validiert, d.h. bei dem die Eingabe
+fehlerhaft ist, soll in roter Schriftfarbe eine Fehlermeldung angezeigt werden. Solange nicht
+alle Eingaben in den Formularfeldern valide sind, validiert das ganze Formular nicht. Deakti-
+vieren Sie den Submit-Button, wenn das Form nicht validiert.
+c) Formular-Vorschau (DOM-Manipulation)
+Erweitern Sie das erstellte Formular, um mit JavaScript eine Vorschau der Sendedaten zu
+erstellen. Verändern Sie hierfür das Formular zuerst so, dass es nicht direkt an die im action-
+Attribut definierte URL geschickt wird, sobald es abgeschickt wird. Das kann durch die Anpas-
+sung der onsubmit-Funktion des Formulars umgesetzt werden, zum Beispiel:
+• onsubmit="return false;"
+• onsubmit="return foo();"
+function foo() { return false; }
+Anschließend soll das DOM manipuliert werden, um die Vorschau der Eingabedaten zu erzeu-
+gen. Hierzu sollen sich für die/den Nutzer*in alle <input>-Felder in Textfelder ändern. Diese
+Änderung soll folgendermaßen umgesetzt werden:
+• Die <input>-Felder sollen über JavaScript als nicht sichtbar gesetzt werden, bei-
+spielsweise durch einen der folgenden Tags:
+o display: none
+o visibility: hidden
+• Vor jedem <input>-Feld soll ein neues Element erzeugt werden, dessen Text dem
+Inhalt des dazugehörigen Eingabefelds entspricht. Hierzu kann beispielsweise der Ja-
+vaScript-Befehl insertBefore() verwendet werden.
+• Die Felder für die Passworteingabe sind komplett aus dem Sichtfeld zu entfernen.
+Jetzt sollte der Submit-Button – wie man es eingangs erwartet hat – funktionieren, d.h. die
+Daten des Formulars abgeschickt werden.
+Studiengang Betriebliche Umweltinformatik
+Web-Technologien und -Programmierung
+(Wintersemester 2025/26)
+Prof. Dr. Frank Fuchs-Kittowski
+WT II – Wintersemester 2025/26 3
+2. Laden und Darstellen von Inhalten mit AJAX & JSON
+Entwickeln Sie eine AJAX-basierte Web-Anwendung, in dem Sie für eine AJAX-Funktion zum
+Laden von Naturbeobachtungen implementieren. Erstellen oder nutzen Sie Ihre bereits er-
+stellte Seite, auf der Naturbeobachtungen in Form von Kacheln angezeigt werden können. Die
+Beobachtungen sollen in Dreierreihen dargestellt werden und es sollen immer sechs Beobach-
+tungen gleichzeitig auf der Seite sichtbar sein. Unter jeder Beobachtung sollen mindestens der
+lateinische Name des Tieres bzw. der Pflanze und das Datum der Beobachtung angezeigt
+werden. Fügen Sie außerdem einen Button oder Link hinzu, mit dem weitere Naturbeobach-
+tungen geladen werden können.
+Beachten Sie, dass AJAX nur funktioniert, wenn die Daten nicht lokal von der Festplatte, son-
+dern über einen eigenen (Web-) Server oder eine externe API geladen werden. Benutzen Sie
+für diese Aufgabe die API von „iNaturalist“
+, mit der Naturbeobachtungen abgerufen werden
+können. Die Dokumentation der API finden Sie unter https://api.inaturalist.org/v1/docs/.
+Unter GET /observations können Sie sich einen Link zum Abrufen der Beobachtungsdaten
+erstellen. Um beispielsweise die richtige Anzahl an Beobachtungen abzurufen, können Sie
+den folgenden Link verwenden und x und y durch die entsprechenden Zahlen ersetzen:
+• https://api.inaturalist.org/v1/observatons?
+page=x&per_page=y&order=desc&order_by=created_at
+Wenn Sie die Daten erfolgreich abgerufen haben, liegen sie im JSON-Format vor. Wenn Sie
+dieses korrekt parsen, können Sie auf die einzelnen Felder zugreifen, die die Informationen
+enthalten, die Sie darstellen möchten. Lesen Sie mindestens den lateinischen Namen des Tie-
+res bzw. der Pflanze und das Datum der Beobachtung aus und stellen Sie diese Informationen
+in den entsprechenden Kacheln dar. Beim Laden der Seite sollen die ersten sechs Beobach-
+tungen korrekt dargestellt werden. Klickt man auf den entsprechenden Button bzw. Link, sollen
+sechs neue Beobachtungen mithilfe der API abgerufen werden. Passen Sie hierzu bei jedem
+Aufruf die Seitenzahl im Link an.
+Um die Bilder der Beobachtungen darzustellen, benötigen Sie einen Link zu der Bilddatei. Die-
+sen finden Sie auf die gleiche Weise wie den lateinischen Namen des Tieres bzw. der Pflanze
+und das Datum der Beobachtung. Allerdings verweist dieser Link nur auf eine 75x75 Pixel
+große Version des Bildes. Den Link zu dem Bild in voller Größe erhalten Sie, indem Sie im
+Link das Wort square durch large ersetzen.
+Abnahme
+Das Ergebnis der Aufgaben ist in Moodle hochzuladen. Komprimieren Sie hierfür alle notwen-
+digen Dateien (HTML, CSS, JavaScript, usw.) in ein zip-Archiv und laden Sie dieses im ent-
+sprechenden Abgabebereich hoch. Sie können sich bei der Bearbeitung der Aufgabe gegen-
+seitig unterstützen, eine Gruppenarbeit (als Abgabe) ist allerdings nicht zulässig.
+Beispiel
+Die folgenden Screenshots dienen lediglich als Beispiel, wie die Aufgaben umgesetzt werden
+können und müssen nicht 1:1 nachgestellt werden.
+Studiengang Betriebliche Umweltinformatik
+Web-Technologien und -Programmierung
+(Wintersemester 2025/26)
+Prof. Dr. Frank Fuchs-Kittowski
+WT II – Wintersemester 2025/26 4
+Studiengang Betriebliche Umweltinformatik
+Web-Technologien und -Programmierung
+(Wintersemester 2025/26)
+Prof. Dr. Frank Fuchs-Kittowski
+WT II – Wintersemester 2025/26 5
+Studiengang Betriebliche Umweltinformatik
+Web-Technologien und -Programmierung
+(Wintersemester 2025/26)
+Prof. Dr. Frank Fuchs-Kittowski
+WT II – Wintersemester 2025/26 6

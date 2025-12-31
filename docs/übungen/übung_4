@@ -1,0 +1,47 @@
+Studiengang Betriebliche Umweltinformatik
+Web-Technologien und -Programmierung
+(Wintersemester 2025/26)
+Prof. Dr. Frank Fuchs-Kittowski
+WT II – Wintersemester 2025/26 1
+07 – jQuery, Leaflet
+Lernziel
+In dieser Programmieraufgabe geht es um jQuery und Leaflet. Sie sollen mit jQuery die
+Inhalte Ihrer Webseite verändern und mit Leaflet Geo-Daten visualisieren können.
+Aufgaben
+In dieser Aufgabe sollen Sie Ihre bisherige auf HTML und CCS/Bootstrap sowie JavaScript
+und AJAX basierende Lösung für eine „Onlineplattform zum Erfassen und Anzeigen von
+naturbezogenen Beobachtungen“ für Tiere und Pflanzen weiterentwickeln, indem Sie eine
+Sidebar mit jQuery ein- und ausblenden und innerhalb der Sidebar eine Karte mit Leaflet
+darstellen.
+1. Ein- und Ausblenden einer Sidebar mit jQuery
+Erstellen Sie auf der Hauptseite einen Platzhalter für eine Karte, sofern dieser noch nicht
+vorhanden ist. Dieser sollte sich neben den Kacheln für die Beobachtungen befinden und ein
+Drittel der Seite einnehmen. Fügen Sie außerdem einen Button hinzu, mit dem sich die Sidebar ein- bzw. ausblenden lässt.
+Beim Aufrufen der Seite soll die Sidebar ausgeblendet sein und drei Kacheln nebeneinander
+über die volle Breite der Seite dargestellt werden. Wenn die Sidebar über den Button geöffnet wird, soll der Bereich für die Kacheln auf zwei Drittel der Seite verkleinert werden und nur
+noch zwei Kacheln nebeneinander dargestellt werden. Setzen Sie das Ein- und Ausblenden
+der Sidebar sowie das Anpassen der Spaltenbreiten mit jQuery um.
+2. Darstellen von Geo-Daten mit Leaflet
+Verwenden Sie Leaflet, um in der Sidebar eine Karte darzustellen. Laden Sie die Kacheln
+eines Kartenanbieters, wie beispielsweise OpenStreetMap, herunter. Wenn über die API
+neue Beobachtungen geladen werden, soll für jede Beobachtung ein neuer Marker an der
+Stelle in der Karte platziert werden, an der die Beobachtung stattgefunden hat. Alle Informationen zum Standort finden Sie in den Daten, die Sie bereits mithilfe der API abrufen. Bei
+einem Klick auf einen Marker in der Karte sollen Informationen über die Beobachtung als
+Pop-up angezeigt werden, mindestens aber der lateinische Name. Alternativ können Sie die
+Kachel der ausgewählten Beobachtung hervorheben. Wenn eine neue Seite mit Beobachtungen geladen wird, sollen auch die Marker entsprechend aktualisiert werden.
+Studiengang Betriebliche Umweltinformatik
+Web-Technologien und -Programmierung
+(Wintersemester 2025/26)
+Prof. Dr. Frank Fuchs-Kittowski
+WT II – Wintersemester 2025/26 2
+Abnahme
+Das Ergebnis der Aufgaben ist in Moodle hochzuladen. Komprimieren Sie hierfür alle notwendigen Dateien (HTML, CSS, JavaScript, usw.) in ein zip-Archiv und laden Sie dieses im
+entsprechenden Abgabebereich hoch. Sie können sich bei der Bearbeitung der Aufgabe gegenseitig unterstützen, eine Gruppenarbeit (als Abgabe) ist allerdings nicht zulässig.
+Beispiel
+Die folgenden Screenshots dienen lediglich als Beispiel, wie die Aufgaben umgesetzt werden
+können und müssen nicht 1:1 nachgestellt werden.
+Studiengang Betriebliche Umweltinformatik
+Web-Technologien und -Programmierung
+(Wintersemester 2025/26)
+Prof. Dr. Frank Fuchs-Kittowski
+WT II – Wintersemester 2025/26 3

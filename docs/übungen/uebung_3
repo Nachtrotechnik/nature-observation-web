@@ -1,0 +1,40 @@
+06 – Clientseitige Web-Frameworks
+Lernziel
+In dieser Programmieraufgabe geht es um den Einsatz des CSS-Frameworks BootStrap. Sie
+sollen sich mit den Funktionalitäten des Frameworks vertraut machen und das Aussehen Ihrer
+Webseite mithilfe des Frameworks gestalten können.
+Aufgaben
+In dieser Aufgabe sollen Sie Ihre bisherige auf HTML und CCS sowie JavaScript und AJAX
+basierende Lösung für eine „Onlineplattform zum Erfassen und Anzeigen von naturbezo-
+genen Beobachtungen“ für Tiere und Pflanzen weiterentwickeln, indem Sie die Formatie-
+rung, das Layout und das Responsive Webdesign (RWD) anstelle von CSS nun mit dem CSS-
+Framework Bootstrap realisieren.
+1. Bootstrap
+Aufgabe
+Entwickeln Sie mit Bootstrap das Front-End der im vorherigen Übungsblatt 3 „Basisprogram-
+mierung“ und Übungsblatt 4 „JavaScript, DOM, AJAX, JSON“ beschriebenen und von Ihnen
+realisierten Web-Seite.
+Ersetzen Sie hierbei CSS so weit wie möglich durch BootStrap, insbesondere für die Forma-
+tierung, das Layout und das Responsive Webdesign (RWD). Auch für die Validierung des
+Formulars zur „Registrierung“ ist anstelle von JavaScript nun so weit wie möglich BootStrap
+einzusetzen. In dieser Aufgabe genügt es zu überprüfen, ob die Pflichtfelder nicht leer sind,
+wenn das Formular abgeschickt wird. Informationen zur Validierung der Felder finden Sie in
+der Dokumentation von Bootstrap: https://getbootstrap.com/docs/5.3/forms/validation/.
+Abnahme
+Das Ergebnis der Aufgaben ist in Moodle hochzuladen. Komprimieren Sie hierfür alle notwen-
+digen Dateien (HTML, CSS, JavaScript, usw.) in ein zip-Archiv und laden Sie dieses im ent-
+sprechenden Abgabebereich hoch. Sie können sich bei der Bearbeitung der Aufgabe gegen-
+seitig unterstützen, eine Gruppenarbeit (als Abgabe) ist allerdings nicht zulässig.
+Beispiel
+Die folgenden Screenshots dienen lediglich als Beispiel, wie die Aufgaben umgesetzt werden
+können und müssen nicht 1:1 nachgestellt werden.
+Studiengang Betriebliche Umweltinformatik
+Web-Technologien und -Programmierung
+(Wintersemester 2025/26)
+Prof. Dr. Frank Fuchs-Kittowski
+WT II - Wintersemester 2025/26 2
+Studiengang Betriebliche Umweltinformatik
+Web-Technologien und -Programmierung
+(Wintersemester 2025/26)
+Prof. Dr. Frank Fuchs-Kittowski
+WT II - Wintersemester 2025/26 3

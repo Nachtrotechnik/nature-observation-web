@@ -1,0 +1,55 @@
+
+– Express, MongoDB, Mongoose
+Lernziel
+In dieser Programmieraufgabe geht es um Node.js in Verbindung mit Express, MongoDB
+und Mongoose. Sie sollen Express, MongoDB und Mongoose für die Entwicklung einer serverseitigen Datenbank einsetzen können.
+Aufgaben
+In dieser Aufgabe sollen Sie Ihre bisherige auf HTML und CCS/Bootstrap sowie JavaScript,
+Leaflet und AJAX basierende Lösung für eine „Onlineplattform zum Erfassen und Anzeigen
+von naturbezogenen Beobachtungen“ für Tiere und Pflanzen weiterentwickeln, indem Sie
+Naturbeobachtungen hinzufügen und in einer Datenbank speichern können.
+1. Hinzufügen und Anzeigen von neuen Beobachtungen mit Express
+Fügen Sie einen Button zum Hinzufügen von Beobachtungen hinzu, sofern noch kein solcher
+Button auf Ihrer Website verfügbar ist. Wenn dieser Button angeklickt wird, soll sich entweder
+auf der aktuellen Seite oder auf einer neuen Seite ein Formular öffnen, über welches sich eine
+neue Beobachtung eintragen lässt. Dieses Formular soll mindestens die Felder Titel, Lateinischer Name, Fundort und Datum enthalten. Fügen Sie außerdem ein UI-Element Ihrer Wahl
+hinzu, mit dem sich zwischen der Ansicht lokal gespeicherter und über die iNaturalist-API geladener Beobachtungen wechseln lässt.
+Überlegen Sie sich anschließend, welche Endpunkte Sie für Ihre REST API benötigen. Lassen
+Sie sich hierbei von der iNaturalist API (https://api.inaturalist.org/v1/docs/) inspirieren. Mindestens enthalten sollten allerdings sein:
+• POST /observation zum Hinzufügen einer neuen Beobachtung
+• GET /observations zum Anzeigen aller vorhandenen Beobachtung
+• GET /obervation/{id} zum Anzeigen einer vorhandenen Beobachtung
+• DEL /observation/{id} zum Löschen einer vorhandenen Beobachtung
+Beim Abschicken des Formulars soll nun mithilfe von Express ein POST-Request gesendet
+werden, der die im Formular eingetragenen Daten enthält. Wechselt man die Ansicht zu lokal
+gespeicherten Naturbeobachtungen, soll mithilfe von Express ein GET-Request gesendet werden, der alle gespeicherten Beobachtungen als Antwort erhält. Zu Testzwecken können Sie
+die Beobachtungen wie in der letzten Aufgabe zunächst als Textdatei speichern. Sollte dabei
+der Fehler CORS request not HTTP auftreten, können Sie den Befehl use() mit dem
+Parameter express.static("FOLDER") verwenden, um die Dateien in dem angegebenen
+Ordner über den gleichen Express-Server bereitzustellen.
+Studiengang Betriebliche Umweltinformatik
+Web-Technologien und -Programmierung
+(Wintersemester 2025/26)
+Prof. Dr. Frank Fuchs-Kittowski
+WT II – Wintersemester 2025/26 2
+2. Speichern und Laden von Beobachtungen mit Mongoose und MongoDB
+Installieren Sie MongoDB auf Ihrem System. Laden Sie hierzu die Installationsdateien von der
+offiziellen Website (https://www.mongodb.com/try/download/community) herunter und führen
+Sie die Installation aus. Mit der Installation von MongoDB Compass erhalten Sie zusätzlich
+eine grafische Oberfläche, die die Bedienung erleichtert. Erstellen Sie anschließend eine neue
+Verbindung und eine neue Datenbank, in der die Beobachtungen gespeichert werden können.
+Eine genaue Anleitung mit Screenshots finden Sie am Ende dieses Aufgabenblatts. Für die
+spätere Aufgabe sind vor allem die URI, der Database Name und der Collection Name
+wichtig.
+Verwenden Sie MongoDB und Mongoose, um die Daten bei einem POST-Request in der Datenbank speichern und bei deinem GET-Request von der Datenbank abfragen zu können.
+Speichern Sie die Daten hierfür in Form von Mongoose-Modellen. Diese erlauben es beispielsweise, nur Beobachtungen mit bestimmten Eigenschaften aus der Datenbank zu lesen und
+zurückzugeben.
+Abnahme
+Das Ergebnis der Aufgaben ist in Moodle hochzuladen. Komprimieren Sie hierfür alle notwendigen Dateien (HTML, CSS, JavaScript, usw.) in ein zip-Archiv und laden Sie dieses im entsprechenden Abgabebereich hoch. Von npm erstellte Ordner wie zum Beispiel der Ordner
+node_modules sollen nicht mit hochgeladen werden. Sie können sich bei der Bearbeitung
+der Aufgabe gegenseitig unterstützen, eine Gruppenarbeit (als Abgabe) ist allerdings nicht zulässig.
+Beispiel
+Die folgenden Screenshots dienen lediglich als Beispiel, wie die Aufgaben umgesetzt werden
+können und müssen nicht 1:1 nachgestellt werden.
+
+Studiengang Betriebliche Umweltinformatik

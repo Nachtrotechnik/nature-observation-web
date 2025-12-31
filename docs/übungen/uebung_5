@@ -1,0 +1,74 @@
+09 – Node.js, npm, http
+Lernziel
+In dieser Programmieraufgabe geht es um Node.js, npm und http. Sie sollen Node.js und
+npm für die Entwicklung einer Web-Anwendung einsetzen und mit dem Modul http einen einfachen Webserver programmieren können.
+Aufgaben
+In dieser Aufgabe sollen Sie Ihre bisherige auf HTML und CCS/Bootstrap sowie JavaScript,
+Leaflet und AJAX basierende Lösung für eine „Onlineplattform zum Erfassen und Anzeigen
+von naturbezogenen Beobachtungen“ für Tiere und Pflanzen weiterentwickeln, indem Sie
+den Inhalt der aktuellen Kacheln als Log-Datei exportieren können.
+1. Installieren und Testen von Node.js
+Installieren Sie eine Node.js-Umgebung auf Ihrem Computer. Hierzu können Sie das Installations-Paket für Ihre Systemplattform von der offiziellen Website https://nodejs.org/de/download/ herunterladen und installieren.
+Um zu überprüfen, ob die Installation erfolgreich war, können Sie eine JavaScript-Datei (z.B.
+hello-world.js) erzeugen und mit dem folgenden Quelltext füllen:
+console.log("Hello, World!");
+Führen Sie das Skript aus, indem Sie die Konsole bzw. den Node.js-Interpreter im übergeordneten Ordner öffnen und den folgenden Befehl ausführen:
+node hello-world.js
+Wenn Ihre Node.js-Umgebung korrekt installiert ist, wird in der Konsole die folgende Nachricht
+angezeigt:
+Hello, World!
+Dieser Teil der Aufgabe dient ausschließlich dazu, zu überprüfen, ob Node.js korrekt installiert
+wurde. Die Datei muss nicht abgegeben werden.
+2. Installieren von Modulen mit npm
+Um ein Modul für die Verwendung von Node.js mithilfe von npm zu installieren, gibt es zwei
+Möglichkeiten: Die Installation aller Module einzeln oder die Definition einer Paketdatei, die
+alle zu installierenden Module enthält. In beiden Fällen wird im Projektverzeichnis ein neuer
+Ordner namens node_modules erstellt. In diesem Ordner wird anschließend für jedes installierte Modul ein Unterordner angelegt.
+Studiengang Betriebliche Umweltinformatik
+Web-Technologien und -Programmierung
+(Wintersemester 2025/26)
+Prof. Dr. Frank Fuchs-Kittowski
+WT II – Wintersemester 2025/26 2
+1. Ein Modul kann direkt installiert werden, indem im Projektverzeichnis der folgende Befehl ausgeführt wird: npm install module. Dabei muss module durch den Namen
+des zu installierenden Moduls ersetzt werden.
+2. Mehrere Module können indirekt über eine Paketdatei namens package.json installiert werden, indem im Projektverzeichnis, welches eine Paketdatei enthält, der folgende Befehl ausgeführt wird: npm install. In der Paketdatei sind alle zu installierenden Module sowie weitere Informationen aufgeführt. Diese Datei könnte beispielsweise wie folgt aussehen:
+{
+"name": "honey-tools",
+"version": "1.4",
+"author": "Winnie Pooh",
+"dependencies": {
+"honey-shop-module": "2.3.7",
+"bee-management-tools": "0.8.2",
+"beeish-translator": "7.23"
+}
+}
+Erstellen Sie eine Paketdatei für die Installation des Moduls time-stamp in der Version
+2.2.0. Verwenden Sie diese anschließend, um das Modul zu installieren.
+3. Loggen von Daten mit Node.js und http
+Erstellen Sie eine JavaScript-Datei, die die Funktionsweise eines Webservers implementiert.
+Dieser Webserver soll Daten im JSON-Format empfangen und sie als Datei mit dem aktuellen
+Zeitstempel als Dateinamen speichern können. Laden Sie hierzu zu Beginn mithilfe des Befehls require() die Module http, fs und time-stamp. Erstellen Sie anschließend mithilfe
+des Moduls http einen einfachen Webserver. Dieser soll überprüfen, ob eine Anfrage mittels
+der POST-Methode gestellt wurde und ob die URL einem vordefinierten Muster entspricht. Sie
+können beispielsweise prüfen, ob die URL um die Zeichenkette /export erweitert wurde.
+Sind beide Bedingungen erfüllt, verwenden Sie die Module fs und time-stamp, um die empfangenen Daten in eine Datei zu schreiben. Der Dateiname sollte dabei dem folgenden Format
+entsprechen: export_YYYYMMDDHHmmss.json.
+Fügen Sie Ihrer Website einen Button hinzu, mit dem sich die Informationen der aktuellen
+Kacheln exportieren lassen. Wenn dieser Button angeklickt wird, sollen mithilfe von JavaScript
+der lateinische Name, der Fundort und das Datum jeder der sechs Kacheln mit Beobachtungen
+abgerufen und in einen JSON-String umgewandelt werden. Hierfür können Sie die Funktion
+JSON.stringify() verwenden. Anschließend soll der JSON-String mittels der POSTMethode an den lokalen Server gesendet werden. Die passende URL dazu könnte beispielsweise wie folgt aussehen: http://localhost:3000/export.
+Wenn die Schritte erfolgreich implementiert wurden, sollte beim Klicken auf den Export-Button
+jeweils eine neue Log-Datei erzeugt werden. Diese trägt den aktuellen Zeitstempel als Dateinamen und beinhaltet die Informationen zu den aktuellen Kacheln im JSON-Format.
+Studiengang Betriebliche Umweltinformatik
+Web-Technologien und -Programmierung
+(Wintersemester 2025/26)
+Prof. Dr. Frank Fuchs-Kittowski
+WT II – Wintersemester 2025/26 3
+Abnahme
+Das Ergebnis der Aufgaben ist in Moodle hochzuladen. Komprimieren Sie hierfür alle notwendigen Dateien (HTML, CSS, JavaScript, usw.) in ein zip-Archiv und laden Sie dieses im entsprechenden Abgabebereich hoch. Von npm erstellte Ordner wie zum Beispiel der Ordner
+node_modules sollen nicht mit hochgeladen werden. Sie können sich bei der Bearbeitung
+der Aufgabe gegenseitig unterstützen, eine Gruppenarbeit (als Abgabe) ist allerdings nicht zulässig.
+Beispiel
+Die folgenden Screenshots dienen lediglich als Beispiel, wie die Aufgaben umgesetzt werden
+können und müssen nicht 1:1 nachgestellt werden.

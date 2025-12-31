@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="de">
+
+    <!-- HEAD: Meta-Informationen und Stylesheet-Einbindung -->
+    <head>
+        <title>Naturkarte</title>
+        <meta charset="UTF-8">
+        <meta name="author" content="Tobias">
+        <meta name="description" content="Website zur Übung">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="style.css" rel="stylesheet">
+        <!-- Leaflet CSS für die Karte -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin>
+    </head>
+    <body>
+        <!-- HEADER: Logo, Navigation und Suchfunktion -->
+        <header class="pt-3 pt-md-4 bg-success bg-gradient">
+            <!-- Anker für "Seitenanfang"-Link -->
+            <a id="top"></a>
+            <!-- Hauptnavigation: Logo, Titel und Navigationslinks -->
+            <div class="container-fluid d-flex flex-column flex-md-row justify-content-between align-items-center bg-success bg-gradient text-white gap-2 gap-md-4 px-2 px-md-4">
+                <figure class="figure align-self-center ms-2 ms-md-5 mb-0">
+                    <img class="figure-img img-fluid rounded" src="logo.jpg" alt="Logo">
+                </figure>
+                <h1 class="display-3 align-self-baseline text-uppercase text-white mt-2 mb-0">Naturbeobachtungen</h1>
+                <nav class="align-self-end h6 mb-0" aria-label="Hauptnavigation">
+                    <ul class="navbar-nav d-flex flex-row gap-2">
+                        <li class="nav-item">
+                            <a class="nav-link active text-white" aria-current="page" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link text-white" href="login.html">Login</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <!-- Action-Bereich: Beobachtung hinzufügen und Suche -->
+            <div class="container-fluid d-flex flex-column flex-md-row justify-content-between align-items-center bg-secondary bg-gradient text-white gap-2 gap-md-4 px-2 px-md-4">
+                <!-- Formular zum Hinzufügen einer neuen Beobachtung -->
+                <div class="d-flex align-items-center py-2 mb-2 mb-md-0">
+                    <label class="text-nowrap me-2 mb-0" for="hinzufuegen">Beobachtung hinzufügen</label>
+                    <button class="btn btn-outline-light" type="button" id="hinzufuegen" data-bs-toggle="modal" data-bs-target="#observationModal">&#43;</button>
+                </div>
+                <!-- Suchformular für Beobachtungen -->
+                <form class="input-group w-100 w-md-50 mt-2 mt-md-0" role="search" action="#" method="get">
+                    <label class="ms-3 me-3 mb-0 align-self-center" for="suche">Beobachtungen:</label>
+                    <input class="form-control" type="text" id="suche" name="q" placeholder="Beobachtungen">
+                    <button class="btn btn-outline-light" type="submit">Suchen</button>
+                </form>
+            </div>
+        </header>
+        <!-- MAIN: Hauptinhalt der Seite -->
+        <main class="py-2 py-md-3 px-2 px-md-3">
+            <!-- Pagination: Navigation zwischen Beobachtungsseiten -->
+            <div class="text-center my-2">
+                <button type="button" class="btn btn-outline-success me-2">vorherige</button>
+                <button type="button" class="btn btn-outline-success">nächste</button>
+                <button type="button" id="export-button" class="btn btn-outline-success ms-4">Export</button>
+                <button type="button" id="toggle-sidebar" class="btn btn-outline-success ms-4">Karte anzeigen</button>
+            </div>
+            <div class="text-center my-2" role="group">
+                <button type="button" id="view-local" class="btn btn-outline-success" data-bs-toggle="button">Lokal</button>
+                <button type="button" id="view-inaturalist" class="btn btn-outline-success active" data-bs-toggle="button">iNaturalist</button>
+            </div>
+            <!-- Container für Sidebar und Beobachtungs-Grid -->
+            <div class="container-fluid px-0">
+                <div class="row g-0">
+                    <!-- Sidebar mit Leaflet-Karte (1/3 Breite, standardmäßig ausgeblendet) -->
+                    <aside id="sidebar" class="col-md-4 d-none sidebar-map-container">
+                        <div id="map" class="map-container"></div>
+                    </aside>
+                    <!-- Grid-Container für alle Beobachtungs-Artikel (2/3 wenn Sidebar offen, 3/3 wenn geschlossen) -->
+                    <div id="observations-container" class="col-12 col-md-12">
+                        <div class="beobachtungen-grid Grid-Container">
+                            <div class="row g-4">
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <article class="card h-100 d-flex flex-column">
+                                        <img class="card-img-top" src="https://placehold.co/300x200/png" alt="Platzhalter">
+                                        <div class="card-body d-flex flex-column flex-grow-1">
+                                            <h2 class="card-title h5">Adler</h2>
+                                            <p id="latinName" class="card-text">Lateinischer Name</p>
+                                            <p id="observationDate" class="card-text">Beobachtungsdatum</p>
+                                            <p id="location" class="card-text">Ort</p>
+                                            <a href="detail.html" class="btn btn-outline-success mt-auto">Details</a>
+                                        </div>
+                                    </article>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Button zum Laden weiterer Beobachtungen -->
+            <div class="text-center my-3">
+                <span id="mehr" class="me-2">mehr Beobachtungen</span>
+                <button id="view_more" type="button" class="btn btn-outline-success">mehr</button>
+            </div>
+        </main>
+        <!-- FOOTER: Newsletter und Footer-Navigation -->
+        <footer>
+            <!-- Newsletter-Bereich mit Datenschutz-Checkbox -->
+            <div class="container-fluid d-flex flex-column align-items-center bg-success bg-gradient text-white gap-1 gap-md-2 px-2 px-md-4 py-2">
+                <form class="d-flex flex-column flex-md-row align-items-center gap-2" action="#" method="get">
+                    <label class="text-nowrap" for="newsletter">Newsletter</label>
+                    <input class="form-control" type="email" id="newsletter" name="q" placeholder="E-Mail eingeben">
+                    <button class="btn btn-outline-light" type="submit">Anmelden</button>
+                </form>
+                <div class="form-check mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="datenschutz" name="datenschutz">
+                        <label class="form-check-label text-nowrap" for="datenschutz">Ich stimme den Datenschutzbestimmungen zu</label>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer-Navigation: Links zu wichtigen Seiten -->
+            <div class="container-fluid d-flex flex-column flex-md-row justify-content-center align-items-center bg-secondary bg-gradient text-white gap-2 gap-md-4 px-2 px-md-4">
+                <nav aria-label="Helfernavigation">
+                    <ul class="navbar-nav d-flex flex-row gap-2 mb-0">
+                        <li class="nav-item"><a class="nav-link text-white" href="index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="kontakt.html">Kontakt</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="impressum.html">Impressum</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="#top">Seitenanfang</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </footer>
+        <!-- jQuery - muss vor Leaflet geladen werden -->
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <!-- Bootstrap JS für Modal-Funktionalität -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <!-- Leaflet JS für die Karte -->
+        <!--
+            Das Attribut "integrity" in einem <script>-Tag dient der Subresource Integrity (SRI).
+            Es ermöglicht dem Browser zu überprüfen, ob die heruntergeladene Datei (z.B. ein externes Skript) nicht manipuliert wurde.
+            Der Wert ist ein kryptographischer Hash der Datei. Wenn die Datei verändert wurde, stimmt der Hash nicht mehr
+            und der Browser führt das Skript nicht aus. Das erhöht die Sicherheit beim Laden externer Ressourcen.
+
+            Beispiel:
+            <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin></script>
+        -->
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin></script>
+        <script src="map.js"></script>
+        <script src="sidebar.js"></script>
+        <script src="observations.js"></script>
+        <script src="modal.js"></script>
+        <div class="modal" id="observationModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Beobachtung hinzufügen</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="observationForm">
+                            <div class="mb-3">
+                                <div class="mb-3">
+                                    <label for="title" class="form-label">Titel</label>
+                                    <input type="text" class="form-control" id="title" name="title" required autofocus>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="latinname" class="form-label">Lateinischer Name</label>
+                                    <input type="text" class="form-control" id="latinname" name="latinName" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="location" class="form-label">Beobachtungsort</label>
+                                    <input type="text" class="form-control" id="observation-location" name="location" required>
+                                </div>
+                                <div class="invalid-feedback">
+                                    Bitte füllen Sie das Feld aus.
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="date" class="form-label">Beobachtungsdatum&ast;</label>
+                                <input type="date" class="form-control" id="date" name="date" required>
+                                <div class="invalid-feedback">
+                                    Bitte geben Sie das Beobachtungsdatum an.
+                                </div>
+                            </div>
+                            <!-- Hidden submit button for HTML validation -->
+                            <button type="submit" style="display: none;" aria-hidden="true"></button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>
+                        <button type="button" class="btn btn-success" id="saveObservation">Beobachtung hinzufügen</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </body>
+
+</html>

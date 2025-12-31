@@ -1,0 +1,10 @@
+{
+    "name": "naturbeobachtungen",
+    "version": "1",
+    "author": "Naturforscher",
+    "dependencies": {
+        "time-stamp": "2.2.0",
+        "express": "^4.18.2",
+        "mongoose": "^8.0.0"
+    }
+}
