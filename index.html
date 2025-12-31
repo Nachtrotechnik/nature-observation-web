@@ -50,16 +50,19 @@
         </header>
         <!-- MAIN: Hauptinhalt der Seite -->
         <main class="py-2 py-md-3 px-2 px-md-3">
-            <!-- Pagination: Navigation zwischen Beobachtungsseiten -->
-            <div class="text-center my-2">
-                <button type="button" class="btn btn-outline-success me-2">vorherige</button>
-                <button type="button" class="btn btn-outline-success">nächste</button>
-                <button type="button" id="export-button" class="btn btn-outline-success ms-4">Export</button>
-                <button type="button" id="toggle-sidebar" class="btn btn-outline-success ms-4">Karte anzeigen</button>
-            </div>
-            <div class="text-center my-2" role="group">
-                <button type="button" id="view-local" class="btn btn-outline-success" data-bs-toggle="button">Lokal</button>
-                <button type="button" id="view-inaturalist" class="btn btn-outline-success active" data-bs-toggle="button">iNaturalist</button>
+            <div class="d-flex justify-content-between align-items-center my-2">
+                <div></div>
+                <div class="btn-group" role="group" aria-label="View toggle">
+                    <input type="radio" class="btn-check" name="view-toggle" id="view-local" autocomplete="off">
+                    <label class="btn btn-outline-success" for="view-local">Lokal</label>
+                    
+                    <input type="radio" class="btn-check" name="view-toggle" id="view-inaturalist" autocomplete="off" checked>
+                    <label class="btn btn-outline-success" for="view-inaturalist">iNaturalist</label>
+                </div>
+                <div class="d-flex gap-2">
+                    <button type="button" id="export-button" class="btn btn-outline-success">Export</button>
+                    <button type="button" id="toggle-sidebar" class="btn btn-outline-success">Karte anzeigen</button>
+                </div>
             </div>
             <!-- Container für Sidebar und Beobachtungs-Grid -->
             <div class="container-fluid px-0">

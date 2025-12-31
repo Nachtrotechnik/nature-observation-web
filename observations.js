@@ -508,16 +508,24 @@ function loadLocalObservations() {
 // Event-Listener für "mehr"-Button
 if (viewMoreButton) {
     viewMoreButton.addEventListener('click', () => {
-        // Seitennummer erhöhen für die nächsten 6 Beobachtungen
-        currentPage++;
-        
-        // Sammlung zurücksetzen, damit wirklich neue 6 Beobachtungen geladen werden
-        collectedObservations = [];
-        
-        console.log(`Lade Seite ${currentPage} - Ziel: 6 neue Beobachtungen`);
-        
-        // Neue 6 Beobachtungen laden (ensureSixObservations = true garantiert genau 6)
-        loadObservations(currentPage, true);
+        // Prüfe welche Ansicht aktiv ist und lade entsprechend
+        if (currentView === 'local') {
+            // Für lokale Ansicht: Lade alle lokalen Beobachtungen
+            console.log('Lade weitere lokale Beobachtungen');
+            loadLocalObservations();
+        } else {
+            // Für iNaturalist Ansicht: Lade nächste Seite
+            // Seitennummer erhöhen für die nächsten 6 Beobachtungen
+            currentPage++;
+            
+            // Sammlung zurücksetzen, damit wirklich neue 6 Beobachtungen geladen werden
+            collectedObservations = [];
+            
+            console.log(`Lade Seite ${currentPage} - Ziel: 6 neue Beobachtungen`);
+            
+            // Neue 6 Beobachtungen laden (ensureSixObservations = true garantiert genau 6)
+            loadObservations(currentPage, true);
+        }
     });
 }
 
@@ -570,22 +578,18 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
-    const viewLocalBtn = $('#view-local');
-    const viewInaturalistBtn = $('#view-inaturalist');
+    const viewLocalRadio = $('#view-local');
+    const viewInaturalistRadio = $('#view-inaturalist');
     
-    console.log('view-local button found:', viewLocalBtn.length > 0);
-    console.log('view-inaturalist button found:', viewInaturalistBtn.length > 0);
+    console.log('view-local radio found:', viewLocalRadio.length > 0);
+    console.log('view-inaturalist radio found:', viewInaturalistRadio.length > 0);
     
     // Setze initiale Button-Zustände: iNaturalist aktiv, Lokal inaktiv
-    viewInaturalistBtn.addClass('active');
-    viewLocalBtn.removeClass('active');
+    viewInaturalistRadio.prop('checked', true);
+    viewLocalRadio.prop('checked', false);
     currentView = 'inaturalist'; // Sicherstellen, dass currentView korrekt gesetzt ist
     
-    viewLocalBtn.on('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        console.log(e);
-        
+    viewLocalRadio.on('change', function(e) {
         // Verhindere unnötige Neuladung wenn bereits in dieser Ansicht
         if (currentView === 'local') {
             return;
@@ -593,20 +597,11 @@ document.addEventListener('DOMContentLoaded', () => {
         
         console.log('better call Sanjeev');
         currentView = 'local';
-        
-        // Button-Zustände sofort aktualisieren für sofortiges Feedback
-        viewLocalBtn.addClass('active');
-        viewInaturalistBtn.removeClass('active');
-        console.log('remove class active from inaturalist');
         clearGrid();
         loadLocalObservations();
     });
     
-    viewInaturalistBtn.on('click', function(e) {
-        console.log('clicked natuarlist');
-        e.preventDefault();
-        e.stopPropagation();
-        console.log(e);
+    viewInaturalistRadio.on('change', function(e) {
         // Verhindere unnötige Neuladung wenn bereits in dieser Ansicht
         if (currentView === 'inaturalist') {
             return;
@@ -614,11 +609,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         console.log('better call Tobi');
         currentView = 'inaturalist';
-        
-        // Button-Zustände sofort aktualisieren für sofortiges Feedback
-        viewLocalBtn.removeClass('active');
-        viewInaturalistBtn.addClass('active');
-        
         clearGrid();
         loadObservations(1, true);
     });
