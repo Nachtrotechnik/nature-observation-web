@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+node_modul/node_modules/
+
+# Excluded directories
+php/
+progress/
+docs/
+.superdesign/
+
+# Export files (generated)
+export_*.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment variables
+.env
+.env.local
