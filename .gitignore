@@ -10,6 +10,7 @@ docs/
 
 # Export files (generated)
 export_*.json
+**/export_*.json
 
 # OS files
 .DS_Store
