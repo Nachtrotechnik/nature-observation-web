@@ -4,6 +4,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
+const mongoUrl = process.env.MONGODB_URL || 'mongodb://localhost:27017/observations';
 
 // Import routes
 const observationRoutes = require('./routes/observationRoutes');
@@ -26,7 +27,7 @@ app.use(express.json());
 app.use(corsMiddleware);
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/observations')
+mongoose.connect(mongoUrl)
     .then(() => {
         console.log('MongoDB verbunden');
     })
