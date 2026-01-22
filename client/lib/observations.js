@@ -28,6 +28,7 @@ let currentPage = 1; // Aktuelle Seitennummer für Pagination
 let collectedObservations = []; // Temporäre Sammlung beim Laden bis 6 gefunden sind
 let displayedObservationIds = new Set(); // Trackt bereits angezeigte Beobachtungen (verhindert Duplikate)
 let currentView = 'inaturalist'; // 'inaturalist' oder 'local' - aktuelle Ansicht
+let abortController = null; // AbortController zum Abbrechen laufender Requests
 
 // 4. HILFSFUNKTIONEN
 
@@ -120,9 +121,22 @@ function isValidObservation(observation) {
  * @param {boolean} ensureSixObservations - Wenn true, werden weitere Seiten geladen bis 6 gültige gefunden sind
  */
 function loadObservations(page, ensureSixObservations = false) {
+    // Prüfe ob wir noch in der richtigen View sind
+    if (currentView !== 'inaturalist') {
+        return; // Nicht mehr in iNaturalist-View, abbrechen
+    }
+    
+    // Abbreche laufende Requests
+    if (abortController) {
+        abortController.abort();
+    }
+    
+    // Neuen AbortController erstellen
+    abortController = new AbortController();
+    
     const url = buildApiUrl(page);
     
-    fetch(url)
+    fetch(url, { signal: abortController.signal })
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -130,6 +144,11 @@ function loadObservations(page, ensureSixObservations = false) {
             return response.json();
         })
         .then(data => {
+            // Prüfe nochmal ob wir noch in der richtigen View sind
+            if (currentView !== 'inaturalist') {
+                return; // View gewechselt, nicht anzeigen
+            }
+            
             if (ensureSixObservations) {
                 collectValidObservations(data, page, page);
             } else {
@@ -137,6 +156,11 @@ function loadObservations(page, ensureSixObservations = false) {
             }
         })
         .catch(error => {
+            // Ignoriere AbortError (wenn Request abgebrochen wurde)
+            if (error.name === 'AbortError') {
+                console.log('iNaturalist Request abgebrochen (View gewechselt)');
+                return;
+            }
             console.error("Fehler beim Laden der Beobachtungen:", error);
         });
 }
@@ -150,6 +174,12 @@ function loadObservations(page, ensureSixObservations = false) {
  * @param {number} startPage - Startseite für die Suche (verhindert Endlosschleife)
  */
 function collectValidObservations(data, currentPageNum, startPage = null) {
+    // Prüfe ob wir noch in der richtigen View sind
+    if (currentView !== 'inaturalist') {
+        collectedObservations = []; // Reset wenn View gewechselt
+        return; // Nicht mehr in iNaturalist-View, abbrechen
+    }
+    
     if (startPage === null) {
         startPage = currentPageNum;
     }
@@ -157,7 +187,7 @@ function collectValidObservations(data, currentPageNum, startPage = null) {
     // Prüfe ob Daten vorhanden sind
     if (!data || !data.results || data.results.length === 0) {
         console.warn("Keine Beobachtungen mehr gefunden");
-        if (collectedObservations.length > 0) {
+        if (currentView === 'inaturalist' && collectedObservations.length > 0) {
             displayCollectedObservations();
         }
         collectedObservations = [];
@@ -176,6 +206,12 @@ function collectValidObservations(data, currentPageNum, startPage = null) {
     
     // Prüfe ob genug Beobachtungen gefunden wurden
     if (collectedObservations.length >= OBSERVATIONS_PER_PAGE) {
+        // Prüfe nochmal ob wir noch in der richtigen View sind
+        if (currentView !== 'inaturalist') {
+            collectedObservations = [];
+            return;
+        }
+        
         // Nimm nur die ersten 6 Beobachtungen
         collectedObservations = collectedObservations.slice(0, OBSERVATIONS_PER_PAGE);
         console.log(`Genug Beobachtungen gefunden. Zeige ${collectedObservations.length} an.`);
@@ -186,12 +222,18 @@ function collectValidObservations(data, currentPageNum, startPage = null) {
         // Reset für nächsten Ladevorgang
         collectedObservations = [];
     } else {
+        // Prüfe ob wir noch in der richtigen View sind
+        if (currentView !== 'inaturalist') {
+            collectedObservations = [];
+            return;
+        }
+        
         // Lade nächste Seite
         const nextPage = currentPageNum + 1;
         const pagesSearched = nextPage - startPage;
         
         if (pagesSearched < MAX_PAGES_TO_SEARCH) {
-            fetch(buildApiUrl(nextPage))
+            fetch(buildApiUrl(nextPage), { signal: abortController?.signal })
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
@@ -202,8 +244,14 @@ function collectValidObservations(data, currentPageNum, startPage = null) {
                     collectValidObservations(data, nextPage, startPage);
                 })
                 .catch(error => {
+                    // Ignoriere AbortError
+                    if (error.name === 'AbortError') {
+                        console.log('iNaturalist Request abgebrochen (View gewechselt)');
+                        collectedObservations = [];
+                        return;
+                    }
                     console.error("Fehler beim Laden der Beobachtungen:", error);
-                    if (collectedObservations.length > 0) {
+                    if (currentView === 'inaturalist' && collectedObservations.length > 0) {
                         displayCollectedObservations();
                     }
                     collectedObservations = [];
@@ -334,9 +382,14 @@ function createObservationArticle(observation) {
  * Zeigt die gesammelten Beobachtungen an
  */
 function displayCollectedObservations() {
+    // Prüfe ob wir noch in der richtigen View sind
+    if (currentView !== 'inaturalist') {
+        return; // Nicht mehr in iNaturalist-View, nicht anzeigen
+    }
+    
     console.log(`displayCollectedObservations: Zeige ${collectedObservations.length} Beobachtungen an`);
     collectedObservations.forEach(observation => {
-        if (observation.id && !displayedObservationIds.has(observation.id)) {
+        if (observation.id && !displayedObservationIds.has(observation.id) && currentView === 'inaturalist') {
             const article = createObservationArticle(observation);
             if (grid) {
                 grid.appendChild(article);
@@ -363,6 +416,11 @@ function displayCollectedObservations() {
  * @param {Object} data - API-Antwort mit Beobachtungen
  */
 function displayObservations(data) {
+    // Prüfe ob wir noch in der richtigen View sind
+    if (currentView !== 'inaturalist') {
+        return; // Nicht mehr in iNaturalist-View, nicht anzeigen
+    }
+    
     if (!data || !data.results || data.results.length === 0) {
         console.warn("Keine Beobachtungen gefunden");
         return;
@@ -375,7 +433,7 @@ function displayObservations(data) {
     validObservations.forEach(observation => {
         if (observation.id && !displayedObservationIds.has(observation.id)) {
             const article = createObservationArticle(observation);
-            if (grid) {
+            if (grid && currentView === 'inaturalist') {
                 grid.appendChild(article);
                 displayedObservationIds.add(observation.id);
             }
@@ -383,17 +441,25 @@ function displayObservations(data) {
     });
     
     // Beobachtungen in globaler Variable speichern (für nachträgliche Marker-Erstellung)
-    window.loadedObservations = validObservations;
-    
-    // Marker zur Karte hinzufügen, falls Karte initialisiert ist
-    if (typeof addObservationMarkers === 'function' && 
-        typeof window.map !== 'undefined' && window.map !== null &&
-        typeof window.markers !== 'undefined' && window.markers !== null) {
-        addObservationMarkers(validObservations);
+    if (currentView === 'inaturalist') {
+        window.loadedObservations = validObservations;
+        
+        // Marker zur Karte hinzufügen, falls Karte initialisiert ist
+        if (typeof addObservationMarkers === 'function' && 
+            typeof window.map !== 'undefined' && window.map !== null &&
+            typeof window.markers !== 'undefined' && window.markers !== null) {
+            addObservationMarkers(validObservations);
+        }
     }
 }
 
 function clearGrid() {
+    // Abbreche laufende iNaturalist-Requests
+    if (abortController) {
+        abortController.abort();
+        abortController = null;
+    }
+    
     if (grid) {
         grid.replaceChildren();
     }
@@ -597,11 +663,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentView === 'local') {
             return;
         }
-        
-        console.log('better call Sanjeev');
         currentView = 'local';
         clearGrid();
         loadLocalObservations();
+        console.log('loadLocalObservations() successful!')
     });
     
     viewInaturalistRadio.on('change', function(e) {
@@ -609,8 +674,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentView === 'inaturalist') {
             return;
         }
-        
-        console.log('better call Tobi');
         currentView = 'inaturalist';
         clearGrid();
         loadObservations(1, true);

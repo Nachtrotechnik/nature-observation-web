@@ -1,5 +1,4 @@
-// JavaScript für Formular-Validierung und Vorschau
-// Übung 4, Aufgabe 1: JavaScript, DOM-Manipulation
+
 // 1. DOM-ELEMENTE
 const regist = document.getElementById("registrierung-form");
 const label = document.querySelectorAll(".content-container form label");
@@ -221,6 +220,7 @@ function validateField(index) {
  * Aktualisiert den Submit-Button basierend auf Validierungsstatus
  */
 function updateSubmitButton() {
+    if (!button_submit) return; // Button existiert nicht auf dieser Seite
     const allValid = validateAllFields();
     button_submit.disabled = !allValid;
 }
@@ -279,55 +279,70 @@ function showPreview() {
     }
 
     // Submit-Button wieder aktivieren (falls deaktiviert)
-    button_submit.disabled = false;
-
-    // Button-Text ändern, um zu zeigen, dass jetzt wirklich abgeschickt wird
-    button_submit.textContent = "Registrierung abschicken";
+    if (button_submit) {
+        button_submit.disabled = false;
+        // Button-Text ändern, um zu zeigen, dass jetzt wirklich abgeschickt wird
+        button_submit.textContent = "Registrierung abschicken";
+    }
 }
 
 // 7. EVENT-LISTENER & INITIALISIERUNG
-// Event-Listener für Formular-Submit
-regist.addEventListener("submit", (e) => {
-    // Wenn Vorschau bereits gezeigt wurde, Formular wirklich abschicken
-    if (previewShown) {
-        return; // Kein preventDefault() - Formular wird abgeschickt
-    }
+// Event-Listener für Formular-Submit (nur wenn Formular existiert)
+if (regist) {
+    regist.addEventListener("submit", (e) => {
+        // Wenn Vorschau bereits gezeigt wurde, Formular wirklich abschicken
+        if (previewShown) {
+            return; // Kein preventDefault() - Formular wird abgeschickt
+        }
 
-    // Validiere alle Felder
-    const isValid = validateAllFields();
+        // Validiere alle Felder
+        const isValid = validateAllFields();
 
-    if (!isValid) {
-        e.preventDefault();
-        button_submit.disabled = true;
-    } else {
-        e.preventDefault(); // Verhindere Standard-Submit, um Vorschau zu zeigen
-        showPreview();
-        previewShown = true; // Markiere, dass Vorschau gezeigt wurde
-    }
-});
+        if (!isValid) {
+            e.preventDefault();
+            if (button_submit) {
+                button_submit.disabled = true;
+            }
+        } else {
+            e.preventDefault(); // Verhindere Standard-Submit, um Vorschau zu zeigen
+            showPreview();
+            previewShown = true; // Markiere, dass Vorschau gezeigt wurde
+        }
+    });
+}
 
-// Event-Listener für Validierung während der Eingabe
-const fieldConfig = [
-    { index: FIELD_INDICES.NAME, event: 'input' },
-    { index: FIELD_INDICES.EMAIL, event: 'input' },
-    { index: FIELD_INDICES.PHONE, event: 'input' },
-    { index: FIELD_INDICES.BIRTH, event: 'change' }, // change für date-Felder
-    { index: FIELD_INDICES.URL, event: 'input' }
-];
+// Event-Listener für Validierung während der Eingabe (nur wenn Inputs existieren)
+if (input && input.length > 0) {
+    const fieldConfig = [
+        { index: FIELD_INDICES.NAME, event: 'input' },
+        { index: FIELD_INDICES.EMAIL, event: 'input' },
+        { index: FIELD_INDICES.PHONE, event: 'input' },
+        { index: FIELD_INDICES.BIRTH, event: 'change' }, // change für date-Felder
+        { index: FIELD_INDICES.URL, event: 'input' }
+    ];
 
-fieldConfig.forEach(config => {
-    input[config.index].addEventListener(config.event, () => validateField(config.index));
-});
+    fieldConfig.forEach(config => {
+        if (input[config.index]) {
+            input[config.index].addEventListener(config.event, () => validateField(config.index));
+        }
+    });
+}
 
-// Spezielle Event-Listener für Passwort-Felder
-password.addEventListener('input', () => validateField(FIELD_INDICES.PASSWORD));
-confirm.addEventListener('input', () => validateField(FIELD_INDICES.CONFIRM));
+// Spezielle Event-Listener für Passwort-Felder (nur wenn Elemente existieren)
+if (password) {
+    password.addEventListener('input', () => validateField(FIELD_INDICES.PASSWORD));
+}
+if (confirm) {
+    confirm.addEventListener('input', () => validateField(FIELD_INDICES.CONFIRM));
+}
 
-// Checkbox-Event-Listener
-checkbox.addEventListener('change', () => {
-    validateCheckbox("Bitte stimmen Sie dem Datenschutz zu");
-    updateSubmitButton();
-});
+// Checkbox-Event-Listener (nur wenn Checkbox existiert)
+if (checkbox) {
+    checkbox.addEventListener('change', () => {
+        validateCheckbox("Bitte stimmen Sie dem Datenschutz zu");
+        updateSubmitButton();
+    });
+}
 
 // Initialisierung beim Laden der Seite
 document.addEventListener('DOMContentLoaded', () => {

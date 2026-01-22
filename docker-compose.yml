@@ -1,15 +1,10 @@
 services:
-  # MongoDB service
-  mongo:
-    image: mongo:latest
-    ports:
-      - "27017:27017"
-  # Node.js/Express service
   app:
     build: . 
     ports:
       - "3000:3000"
     environment:
-      - MONGODB_URL=mongodb://mongo:27017/observations
-    depends_on:
-      - mongo
+      - MONGODB_URL=mongodb://host.docker.internal:27017/observations
+    network_mode: "bridge"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
